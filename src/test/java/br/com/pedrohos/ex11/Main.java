@@ -20,15 +20,14 @@ public class Main {
 			numbs.add(i);
 		}
 		
-		System.out.println("o");
+		System.out.println(">>>> " + Thread.currentThread().getName());
 		
 		Observable.from(numbs)
-							  .map(number -> number + 1)
-							  .subscribeOn(Schedulers.newThread())
-							  //.map(number -> number + 1)
-		        			  .subscribe(name -> System.out.println(name + " " + Thread.currentThread().getName()));
+							  .subscribeOn(Schedulers.computation())
+							  .doOnNext(number -> new Teste().call(number))
+		        			  .subscribe();
 		
-		System.out.println("2o");
+		System.out.println(">>>> " + Thread.currentThread().getName());
 		
 		Thread.sleep(3000);
 		
