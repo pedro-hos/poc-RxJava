@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 
 /**
@@ -25,6 +26,14 @@ public class Main {
 		Observable.from(numbs)
 							  .subscribeOn(Schedulers.computation())
 							  .doOnNext(number -> new Teste().call(number))
+							  .doOnCompleted(new Action0() {
+								
+								@Override
+								public void call() {
+									System.out.println("terminou");
+									
+								}
+							})
 		        			  .subscribe();
 		
 		System.out.println(">>>> " + Thread.currentThread().getName());
